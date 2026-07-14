@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#fffaf6">
+
+  <title>Painel Administrativo | Angels Estética Animal</title>
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+  <header class="topbar">
+    <div>
+      <span class="eyebrow">Angels Estética Animal</span>
+      <h1>Painel Administrativo</h1>
+      <p>Gerencie os agendamentos recebidos pelo aplicativo do cliente.</p>
+    </div>
+
+    <button
+      class="logout-btn"
+      type="button"
+      onclick="sairDoPainel()">
+      Sair
+    </button>
+  </header>
+
+  <main class="app-shell">
+
+    <section class="sync-box notice">
+      <strong>Status:</strong>
+      <span id="syncStatus">Conectando ao Firebase...</span>
+    </section>
+
+    <section class="stats-grid">
+
+      <article class="stat-card">
+        <span class="stat-icon">📅</span>
+        <div>
+          <small>Agendamentos hoje</small>
+          <strong id="countHoje">0</strong>
+        </div>
+      </article>
+
+      <article class="stat-card">
+        <span class="stat-icon">⏳</span>
+        <div>
+          <small>Pendentes</small>
+          <strong id="countPendentes">0</strong>
+        </div>
+      </article>
+
+      <article class="stat-card">
+        <span class="stat-icon">✅</span>
+        <div>
+          <small>Confirmados</small>
+          <strong id="countConfirmados">0</strong>
+        </div>
+      </article>
+
+      <article class="stat-card">
+        <span class="stat-icon">🐾</span>
+        <div>
+          <small>Clubinho</small>
+          <strong id="countClubinho">0</strong>
+        </div>
+      </article>
+
+    </section>
+
+    <nav class="bottom-nav" aria-label="Navegação do painel">
+
+      <button
+        class="active"
+        type="button"
+        data-screen="inicio">
+        🏠
+        <span>Início</span>
+      </button>
+
+      <button
+        type="button"
+        data-screen="agenda">
+        📅
+        <span>Agenda</span>
+      </button>
+
+      <button
+        type="button"
+        data-screen="novo">
+        ➕
+        <span>Novo</span>
+      </button>
+
+      <button
+        type="button"
+        data-screen="cliente">
+        📲
+        <span>Cliente</span>
+      </button>
+
+    </nav>
+
+    <section id="inicio" class="screen active">
+
+      <div class="section-header">
+        <div>
+          <span class="eyebrow">Resumo</span>
+          <h2>Agendamentos recentes</h2>
+        </div>
+      </div>
+
+      <div id="recentList" class="booking-list">
+        <div class="empty">Carregando agendamentos...</div>
+      </div>
+
+    </section>
+
+    <section id="agenda" class="screen">
+
+      <div class="section-header">
+        <div>
+          <span class="eyebrow">Agenda completa</span>
+          <h2>Todos os agendamentos</h2>
+        </div>
+      </div>
+
+      <div id="agendaList" class="booking-list">
+        <div class="empty">Carregando agendamentos...</div>
+      </div>
+
+    </section>
+
+    <section id="novo" class="screen">
+
+      <div class="section-header">
+        <div>
+          <span class="eyebrow">Novo agendamento</span>
+          <h2>Cadastrar manualmente</h2>
+        </div>
+      </div>
+
+      <form id="bookingForm" class="booking-form">
+
+        <div class="form-grid">
+
+          <label>
+            Nome do tutor
+            <input
+              type="text"
+              name="tutor"
+              placeholder="Ex.: Juliana Lima"
+              required>
+          </label>
+
+          <label>
+            WhatsApp
+            <input
+              type="tel"
+              name="whatsapp"
+              placeholder="Ex.: 21999999999"
+              required>
+          </label>
+
+          <label>
+            Nome do pet
+            <input
+              type="text"
+              name="pet"
+              placeholder="Ex.: Luna"
+              required>
+          </label>
+
+          <label>
+            Raça
+            <input
+              type="text"
+              name="raca"
+              placeholder="Ex.: Shih Tzu">
+          </label>
+
+          <label>
+            Serviço
+            <select name="servico" required>
+              <option value="">Selecione</option>
+              <option value="Banho">Banho</option>
+              <option value="Tosa">Tosa</option>
+              <option value="Banho e Tosa">Banho e Tosa</option>
+              <option value="Hidratação">Hidratação</option>
+              <option value="Clubinho">Clubinho</option>
+              <option value="Outro">Outro</option>
+            </select>
+          </label>
+
+          <label>
+            Porte
+            <select name="porte" required>
+              <option value="">Selecione</option>
+              <option value="Pequeno">Pequeno</option>
+              <option value="Médio">Médio</option>
+              <option value="Grande">Grande</option>
+            </select>
+          </label>
+
+          <label>
+            Data
+            <input
+              type="date"
+              name="data"
+              required>
+          </label>
+
+          <label>
+            Horário
+            <input
+              type="time"
+              name="hora"
+              required>
+          </label>
+
+        </div>
+
+        <label class="checkbox-row">
+          <input
+            type="checkbox"
+            name="busca"
+            value="true">
+          Solicitar busca e entrega
+        </label>
+
+        <label>
+          Observações
+          <textarea
+            name="obs"
+            placeholder="Informações importantes sobre o pet"></textarea>
+        </label>
+
+        <button class="primary-btn" type="submit">
+          Salvar agendamento
+        </button>
+
+      </form>
+
+    </section>
+
+    <section id="cliente" class="screen">
+
+      <div class="section-header">
+        <div>
+          <span class="eyebrow">Área do cliente</span>
+          <h2>Enviar link de agendamento</h2>
+        </div>
+      </div>
+
+      <div class="client-card">
+
+        <p id="clientMessage">
+          Olá! Para solicitar o agendamento do seu pet na Angels Estética Animal, acesse:
+          https://angelsesteticaanimal.github.io/Angels-Estetica/cliente.html
+        </p>
+
+        <button
+          class="primary-btn"
+          type="button"
+          onclick="copyClientMessage()">
+          Copiar mensagem
+        </button>
+
+        <a
+          class="secondary-btn"
+          href="https://angelsesteticaanimal.github.io/Angels-Estetica/cliente.html"
+          target="_blank"
+          rel="noopener">
+          Abrir área do cliente
+        </a>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
+  <script src="firebase-config.js"></script>
+  <script src="app.js"></script>
+
+</body>
+</html>
